@@ -35,12 +35,14 @@ SRCS = \
 
 OBJS = $(subst .c,.o,$(SRCS)) src/wfgoto.o src/res.o
 
-CFLAGS = -DUNICODE -DFASTMOVE -DSTRSAFE_NO_DEPRECATE -DWINVER=0x0600
-LDLIBS = -mwindows -lkernel32 -lgdi32 -luser32 -ladvapi32 -lcomctl32 -lole32 -lshlwapi -lshell32 -loleaut32 -lversion
+CFLAGS = -DUNICODE -DFASTMOVE -DSTRSAFE_NO_DEPRECATE -DWINVER=0x0600 -O2
+LDLIBS = -mwindows -lgdi32 -lcomctl32 -lole32 -lshlwapi -loleaut32 -lversion \
+	-static-libgcc -static-libstdc++
 TARGET = winfile
 ifeq ($(OS),Windows_NT)
 TARGET := $(TARGET).exe
 endif
+
 
 CC ?= gcc
 CXX ?= g++
